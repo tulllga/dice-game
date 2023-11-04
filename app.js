@@ -38,23 +38,58 @@ document.querySelector(".btn-roll").addEventListener('click', function(){
         document.getElementById('current-' + activePlayer).textContent = roundtScore;
     }else{
         //Toglogchiin eeljiin onoog 0 bolgono
-        document.getElementById('current-' + activePlayer).textContent = 0;
-        roundtScore = 0;
-
-        //Toglogchiin eeljiig soli
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-
-        //ulaan tsegiig shiljuuleh
-        document.querySelector('.player-0-panel').classList.toggle("active");
-        document.querySelector('.player-1-panel').classList.toggle("active");
-
-        //shoog tur alga bolgoh
-        diceDom.style.display = "none";
+        swichToNextPlayer();
     }
 
+});
 
+//hold button event listener
+document.querySelector('.btn-hold').addEventListener('click', function(){
+    //Toglogchiin eeljiin onoog ooriin onoond nemj ugnu
+    srores[activePlayer] = srores[activePlayer] + roundtScore;
+
+     //delgetsiin undsen onoog uurchlunu
+     document.getElementById('score-' + activePlayer).textContent = srores[activePlayer];
+
+    //toglogchiin hojson esehiig shalgah 
+    if(srores[activePlayer] >= 10){
+        //winner-g hojson toglogchiin nernii orond gargana
+        document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
+
+        //togloomiig zogsooh
+    }else {
+        //eelj solih function
+        swichToNextPlayer();
+    }
+});
+
+//eelj solih function
+function swichToNextPlayer(){
+    //eeljiin onoog 0 bolgono
+    roundtScore = 0;
+    document.getElementById('current-' + activePlayer).textContent = '0'
+
+    //eeljiig solino
+    document.getElementById('current-' + activePlayer).textContent = 0;
+    roundtScore = 0;
+
+    //Toglogchiin eeljiig soli
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
+    //ulaan tsegiig shiljuuleh
+    document.querySelector('.player-0-panel').classList.toggle("active");
+    document.querySelector('.player-1-panel').classList.toggle("active");
+
+    //shoog tur alga bolgoh
+    diceDom.style.display = "none";
+}
+
+//new game button eventlister
+document.querySelector('.btn-new').addEventListener('click', function(){
+    alert(111);
 })
-
 
 
 
