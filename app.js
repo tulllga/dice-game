@@ -1,5 +1,8 @@
 //global huvisagchid
 
+//togloom duussan esehiig hadgalah tuluviin huvisagch
+let isNewGame;
+
 //idvehtei toglogch
 let activePlayer;
 
@@ -17,6 +20,9 @@ initGames();
 
 //togloom ehleh
 function initGames(){
+
+    //togloom ehelseniig zaah
+    isNewGame = true;
     // huvisagchdiin utgiig 0 bolgoh
 
     activePlayer = 0;
@@ -56,45 +62,57 @@ function initGames(){
 //Shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener('click', function(){
 
-    //1-6 dotorhi sanamsargui neg too gargaj avna
-    let diceNumber = Math.ceil(Math.random()*6);
+    if(isNewGame){
+        //1-6 dotorhi sanamsargui neg too gargaj avna
+        let diceNumber = Math.ceil(Math.random()*6);
 
-    //Shoonii zurgiig web deer gargaj irne
-    document.querySelector(".dice").style.display = "block";
+        //Shoonii zurgiig web deer gargaj irne
+        document.querySelector(".dice").style.display = "block";
 
-    //Buusan sanamsargui toond hargalzah shoonii zurgiig haruulna
-    document.querySelector(".dice").src = 'dice-' + diceNumber + '.png';
+        //Buusan sanamsargui toond hargalzah shoonii zurgiig haruulna
+        document.querySelector(".dice").src = 'dice-' + diceNumber + '.png';
 
-    //1s yaltai bol Toglogchiin eeljiin onoog uurchluh
-    if(diceNumber !== 1){
-        roundtScore = roundtScore + diceNumber;
-        document.getElementById('current-' + activePlayer).textContent = roundtScore;
-    }else{
-        //Toglogchiin eeljiin onoog 0 bolgono
-        swichToNextPlayer();
+        //1s yaltai bol Toglogchiin eeljiin onoog uurchluh
+        if(diceNumber !== 1){
+            roundtScore = roundtScore + diceNumber;
+            document.getElementById('current-' + activePlayer).textContent = roundtScore;
+        }else{
+            //Toglogchiin eeljiin onoog 0 bolgono
+            swichToNextPlayer();
+        }
+    }else {
+        alert("Game End, push the new game");
     }
+
 
 });
 
 //hold button event listener
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    //Toglogchiin eeljiin onoog ooriin onoond nemj ugnu
-    srores[activePlayer] = srores[activePlayer] + roundtScore;
+    if(isNewGame){
+        //Toglogchiin eeljiin onoog ooriin onoond nemj ugnu
+        srores[activePlayer] = srores[activePlayer] + roundtScore;
 
-     //delgetsiin undsen onoog uurchlunu
-     document.getElementById('score-' + activePlayer).textContent = srores[activePlayer];
+        //delgetsiin undsen onoog uurchlunu
+        document.getElementById('score-' + activePlayer).textContent = srores[activePlayer];
 
-    //toglogchiin hojson esehiig shalgah 
-    if(srores[activePlayer] >= 10){
+        //toglogchiin hojson esehiig shalgah 
+        if(srores[activePlayer] >= 10){
+        //togloomiin tuluviig off bolgoh
+        isNewGame = false;
+
         //winner-g hojson toglogchiin nernii orond gargana
         document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
 
         //togloomiig zogsooh
-    }else {
+        }else {
         //eelj solih function
         swichToNextPlayer();
+        }
+    }else{
+        alert("Game End, push the new game");
     }
 });
 
