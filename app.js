@@ -18,6 +18,7 @@ let diceDom = document.querySelector(".dice");
 //togloom ehluuleh
 initGames();
 
+
 //togloom ehleh
 function initGames(){
 
@@ -53,11 +54,12 @@ function initGames(){
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
     
-    
+    //ehnii toglogchiig active bolgoh
     document.querySelector('.player-0-panel').classList.add('active');
 
     diceDom.style.display = "none";
 }
+
 
 //Shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener('click', function(){
@@ -81,11 +83,10 @@ document.querySelector(".btn-roll").addEventListener('click', function(){
             swichToNextPlayer();
         }
     }else {
-        alert("Game End, push the new game");
+        finishGameText();
     }
-
-
 });
+
 
 //hold button event listener
 document.querySelector('.btn-hold').addEventListener('click', function(){
@@ -97,7 +98,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         document.getElementById('score-' + activePlayer).textContent = srores[activePlayer];
 
         //toglogchiin hojson esehiig shalgah 
-        if(srores[activePlayer] >= 10){
+        if(srores[activePlayer] >= 100){
         //togloomiin tuluviig off bolgoh
         isNewGame = false;
 
@@ -112,7 +113,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         swichToNextPlayer();
         }
     }else{
-        alert("Game End, push the new game");
+        finishGameText()
     }
 });
 
@@ -134,11 +135,15 @@ function swichToNextPlayer(){
     document.querySelector('.player-1-panel').classList.toggle("active");
 
     //shoog tur alga bolgoh
-    diceDom.style.display = "none";
+    //alert("Next Player");
 }
 
 //new game button eventlister
 document.querySelector('.btn-new').addEventListener('click', initGames)
+
+function finishGameText(){
+    alert("Game End, push the new game");
+}
 
 
 
